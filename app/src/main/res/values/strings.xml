@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Online Registration</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="sign_out">Sign Out</string>
+
+    <string name="title_intro_1">Pendaftaran Online\nRSUD Kab. Tangerang</string>
+    <string name="title_intro_2">Informasi Jadwal Dokter</string>
+    <string name="title_intro_3">Informasi Ketersediaan Bed</string>
+    <string name="title_intro_4">Konfirmasi Pendaftaran</string>
+
+    <string name="desc_intro_1">Aplikasi untuk melakukan pendaftaran poliklinik di RSUD Kab. Tangerang secara online</string>
+    <string name="desc_intro_2">Temukan informasi jadwal dokter spesialis di RSUD Kab. Tangerang. Jadwal dokter dapat berubah sewaktu-waktu tanpa pemberitahuan terlebih dahulu.</string>
+    <string name="desc_intro_3">Temukan informasi ketersediaan bed di Unit Rawat Inap RSUD Kab. Tangerang secara up to date</string>
+    <string name="desc_intro_4">Lakukan konfirmasi pendaftaran poliklinik Anda pada hari H. Jika tidak melakukan konfirmasi maka dianggap batal melakukan pendaftaran</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+</resources>

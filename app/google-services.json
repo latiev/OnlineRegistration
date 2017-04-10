@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "586141689845",
+    "firebase_url": "https://onlineregistration-601a2.firebaseio.com",
+    "project_id": "onlineregistration-601a2",
+    "storage_bucket": "onlineregistration-601a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586141689845:android:e51aeb6fecb3f701",
+        "android_client_info": {
+          "package_name": "id.latiev.onlineregistration"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586141689845-2l9319v1e473qo35cmj73mdffq8r9fg1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.latiev.onlineregistration",
+            "certificate_hash": "8acc5fce8de2577173deafd411ae076efcfc54ea"
+          }
+        },
+        {
+          "client_id": "586141689845-l2k0h0mv3grs6ptnuiq6sgojgnbk3llh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATesxV1YGoGHjw8A1yugrdk69j4UwrmO8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586141689845-l2k0h0mv3grs6ptnuiq6sgojgnbk3llh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
