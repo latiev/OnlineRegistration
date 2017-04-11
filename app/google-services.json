@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "586141689845-u0q6oop7t3csvkn73t39h8ctlmeitnba.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.latiev.onlineregistration",
+            "certificate_hash": "ae58f5f3f6160d6b30f328ecf0a8890b54db867c"
+          }
+        },
+        {
           "client_id": "586141689845-2l9319v1e473qo35cmj73mdffq8r9fg1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
