@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,30 +18,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import id.latiev.onlineregistration.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = "MainActivity";
-    public boolean isFirstStart;
-    public static String KEY_FIRST_START = "firstStart";
     public static final String ANONYMOUS = "anonymous";
-    private String username;
-    private String photoUrl;
+    private String username, photoUrl, email;
+    private SharedPreferences sharedPreferences;
 
     // Firebase instance variables
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
+    private DatabaseReference databaseReference;
 
-    // Google instance variable
+    // Google instance variables
     private GoogleApiClient googleApiClient;
 
     @Override
@@ -54,21 +59,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        username = ANONYMOUS;
 
-        //checkIsFirstStart();
+        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API).build();
 
         // Initialize firebase auth
         firebaseAuth = FirebaseAuth.getInstance();
@@ -81,10 +84,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return;
         } else {
             username = firebaseUser.getDisplayName();
+            email = firebaseUser.getEmail();
             if (firebaseUser.getPhotoUrl() != null){
                 photoUrl = firebaseUser.getPhotoUrl().toString();
             }
         }
+
+        createNavigationView();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -115,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Auth.GoogleSignInApi.signOut(googleApiClient);
                 username = ANONYMOUS;
                 startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -152,23 +179,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 
-    private void checkIsFirstStart(){
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-                isFirstStart = sharedPreferences.getBoolean(KEY_FIRST_START, true);
+    private void createNavigationView(){
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View hView = navigationView.getHeaderView(0);
+        CircleImageView userAvatar = (CircleImageView)hView.findViewById(R.id.iv_drawer_user_image);
+        TextView avatarName = (TextView)hView.findViewById(R.id.tv_drawer_title);
+        TextView avatarSubName = (TextView)hView.findViewById(R.id.tv_drawer_subtitle);
+        avatarName.setText(username);
+        if (username == null){
+            avatarName.setText(ANONYMOUS);
+        } else {
+            avatarName.setText(username);
+        }
 
-                if (isFirstStart){
-                    Intent intent = new Intent(MainActivity.this, IntroActivity.class);
-                    startActivity(intent);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean(KEY_FIRST_START, false);
-                    editor.apply();
-                }
-            }
-        });
+        if (photoUrl == null){
+            userAvatar.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, android.R.drawable.sym_def_app_icon));
+        } else {
+            Glide.with(MainActivity.this).load(photoUrl).into(userAvatar);
+        }
 
-        thread.start();
+        if (email == null){
+            avatarSubName.setText("");
+        } else {
+            avatarSubName.setText(email);
+        }
+        navigationView.setNavigationItemSelectedListener(this);
     }
 }

@@ -26,7 +26,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import id.latiev.onlineregistration.R;
 
-public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+public class SignInActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -47,9 +47,12 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
         signInButton = (SignInButton)findViewById(R.id.btn_sign_in);
 
-        checkIsFirstStart();
-
-        signInButton.setOnClickListener(this);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+            }
+        });
 
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -63,15 +66,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
         // Initialize FirebaseAuth
         firebaseAuth = FirebaseAuth.getInstance();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_sign_in:
-                signIn();
-                break;
-        }
     }
 
     @Override
@@ -123,29 +117,25 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                 } else {
                     startActivity(new Intent(SignInActivity.this, MainActivity.class));
                     finish();
+                    return;
                 }
             }
         });
     }
 
-    private void checkIsFirstStart(){
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SignInActivity.this);
-                isFirstStart = sharedPreferences.getBoolean(KEY_FIRST_START, true);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SignInActivity.this);
+        isFirstStart = sharedPreferences.getBoolean(KEY_FIRST_START, true);
 
-                if (isFirstStart){
-                    Intent intent = new Intent(SignInActivity.this, IntroActivity.class);
-                    startActivity(intent);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean(KEY_FIRST_START, false);
-                    editor.apply();
-                }
-
-            }
-        });
-
-        thread.start();
+        if (isFirstStart){
+            Intent intent = new Intent(SignInActivity.this, IntroActivity.class);
+            startActivity(intent);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(KEY_FIRST_START, false);
+            editor.apply();
+            finish();
+        }
     }
 }
