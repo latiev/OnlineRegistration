@@ -17,8 +17,8 @@
 *.ap_
 *.dex
 hs_err_pid*
-.idea/misc.xml
-.idea/modules.xml
+/.idea/misc.xml
+/.idea/modules.xml
 com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
