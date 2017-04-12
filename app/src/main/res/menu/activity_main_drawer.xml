@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="all">
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="Jadwal Dokter" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Ketersediaan Bed" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="Anggota Terdaftar" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Fasilitas Rumah Sakit" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Pengaturan">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="Bantuan" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="Tentang" />
+            <item
+                android:id="@+id/nav_sign_out"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Keluar" />
         </menu>
     </item>
 

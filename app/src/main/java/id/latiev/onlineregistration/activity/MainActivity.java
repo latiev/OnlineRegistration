@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -93,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         createNavigationView();
+        initCollapsingToolbar();
     }
 
     @Override
@@ -130,31 +133,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId()){
-            case R.id.sign_out_menu:
-                firebaseAuth.signOut();
-                Auth.GoogleSignInApi.signOut(googleApiClient);
-                username = ANONYMOUS;
-                startActivity(new Intent(MainActivity.this, SignInActivity.class));
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -173,6 +151,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.nav_sign_out){
+            firebaseAuth.signOut();
+            Auth.GoogleSignInApi.signOut(googleApiClient);
+            username = ANONYMOUS;
+            startActivity(new Intent(MainActivity.this, SignInActivity.class));
+            finish();
+            return true;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -211,5 +196,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             avatarSubName.setText(email);
         }
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void initCollapsingToolbar() {
+        final CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.ctl_abm_collapsing_toolbar);
+        collapsingToolbar.setTitle(" ");
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.abl_abm_appbar);
+        appBarLayout.setExpanded(true);
+
+        // hiding & showing the title when toolbar expanded & collapsed
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = false;
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    collapsingToolbar.setTitle("Pendaftaran Online");
+                    isShow = true;
+                } else if (isShow) {
+                    collapsingToolbar.setTitle(" ");
+                    isShow = false;
+                }
+            }
+        });
     }
 }
