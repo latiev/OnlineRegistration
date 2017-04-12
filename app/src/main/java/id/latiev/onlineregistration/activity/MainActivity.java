@@ -1,5 +1,6 @@
 package id.latiev.onlineregistration.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.latiev.onlineregistration.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
 
@@ -91,6 +93,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         createNavigationView();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

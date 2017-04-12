@@ -4,15 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/activity_horizontal_margin"
-    android:background="@drawable/sign_in_background"
-    tools:context="id.latiev.onlineregistration.activity.SignInActivity">
+    android:background="@drawable/sign_in_background_v2"
+    tools:context="id.latiev.onlineregistration.activity.SignInActivity"
+    tools:ignore="MissingPrefix">
 
     <ImageView
         android:layout_width="88dp"
         android:layout_height="88dp"
         android:src="@drawable/icon_white"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="68dp"
         android:id="@+id/iv_signin_icon"/>
 
     <TextView
@@ -24,8 +25,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/iv_signin_icon"
         android:layout_marginTop="12dp"
-        android:textSize="24dp"
-        android:textStyle="bold"/>
+        android:textSize="24dp"/>
 
     <Button
         android:id="@+id/btn_signin_google"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="Login Dengan Google"
         android:background="@drawable/button_background_inverse"
-        android:textColor="#6573c3"
+        android:textColor="#3f51b5"
         android:layout_above="@+id/btn_signin_email"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"/>
