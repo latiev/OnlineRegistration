@@ -19,14 +19,21 @@
         android:id="@+id/btn_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_above="@id/btn_sign_in_email" />
 
     <Button
+        android:id="@+id/btn_sign_in_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_sign_in"
         android:text="Sign In With Email"
-        android:textColor="@color/common_google_signin_btn_text_light_default"
-        style="@style/Base.TextAppearance.AppCompat.Widget.Button" />
+        android:textColor="#6F6F6F"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/common_google_signin_btn_text_light"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        android:paddingLeft="62dp"
+        android:paddingRight="16dp"/>
 
 </RelativeLayout>
