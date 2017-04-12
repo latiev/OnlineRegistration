@@ -29,7 +29,9 @@
         <activity
             android:name=".activity.IntroActivity"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".activity.SignInActivity"></activity>
+        <activity
+            android:name=".activity.SignInActivity"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

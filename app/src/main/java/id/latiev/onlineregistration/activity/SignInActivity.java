@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -33,7 +34,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     public static String KEY_FIRST_START = "firstStart";
     public boolean isFirstStart;
 
-    private SignInButton signInButton;
+    private Button signInButton;
 
     private GoogleApiClient googleApiClient;
 
@@ -45,7 +46,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        signInButton = (SignInButton)findViewById(R.id.btn_sign_in);
+        signInButton = (Button)findViewById(R.id.btn_signin_google);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
