@@ -11,6 +11,9 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -25,6 +28,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
@@ -33,8 +40,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.latiev.onlineregistration.R;
+import id.latiev.onlineregistration.adapter.JadwalDokterAdapter;
+import id.latiev.onlineregistration.model.Dokter;
+import id.latiev.onlineregistration.network.AppController;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
@@ -43,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static final String ANONYMOUS = "anonymous";
     private String username, photoUrl, email;
     private SharedPreferences sharedPreferences;
+    private List<Dokter> dokterList;
 
     // Firebase instance variables
     private FirebaseAuth firebaseAuth;
@@ -51,6 +69,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // Google instance variables
     private GoogleApiClient googleApiClient;
+
+    // Adapter
+    private JadwalDokterAdapter jadwalDokterAdapter;
+
+    // UI instance variables
+    private RecyclerView rvJadwalDokter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,31 +120,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         createNavigationView();
         initCollapsingToolbar();
+
+        rvJadwalDokter = (RecyclerView)findViewById(R.id.rv_jadwal_dokter);
+        dokterList = new ArrayList<>();
+
+        getListJadwalDokter("");
+
+        jadwalDokterAdapter = new JadwalDokterAdapter(MainActivity.this, dokterList);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+        rvJadwalDokter.setLayoutManager(layoutManager);
+        rvJadwalDokter.setItemAnimator(new DefaultItemAnimator());
+        rvJadwalDokter.setAdapter(jadwalDokterAdapter);
     }
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 
     @Override
@@ -223,5 +239,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             }
         });
+    }
+
+    private void getListJadwalDokter(String idKLinik){
+        String url = "http://localhost/hkiosk_v3/api/content/jadwal_dokter_list/page/1?clinic_id=" + idKLinik + "&docter_id=";
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray datas = response.getJSONArray("data");
+                    if (datas.length() > 0){
+                        for (int i = 0; i < datas.length(); i++){
+                            JSONObject data = datas.getJSONObject(i);
+                            dokterList.add(new Dokter(data.getString("docter_id"), data.getString("dokter"), data.getString("kelamin"), data.getInt("clinic_id"), data.getString("klinik"), data.getString("waktu")));
+
+                            jadwalDokterAdapter.notifyDataSetChanged();
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e(TAG, "Log catch : " + e.getMessage());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Log error response : " + error.toString());
+            }
+        });
+        AppController.getInstance().addToRequestQueue(request);
     }
 }

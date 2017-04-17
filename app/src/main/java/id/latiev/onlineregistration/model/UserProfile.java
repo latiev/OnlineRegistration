@@ -1,4 +1,4 @@
-package id.latiev.onlineregistration.pojo;
+package id.latiev.onlineregistration.model;
 
 /**
  * Created by latiev on 4/11/17.

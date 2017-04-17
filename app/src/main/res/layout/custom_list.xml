@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    tools:ignore="MissingPrefix">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_cl_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_male"/>
+
+    <TextView
+        android:id="@+id/tv_cl_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Mohamad Amirudin Latief"
+        android:layout_alignTop="@+id/civ_cl_icon"
+        android:layout_toRightOf="@+id/civ_cl_icon"
+        android:layout_toEndOf="@+id/civ_cl_icon"
+        android:layout_marginLeft="10dp"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tv_cl_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Klinik Anak"
+        android:layout_below="@id/tv_cl_title"
+        android:layout_alignLeft="@+id/tv_cl_title"
+        android:layout_alignStart="@+id/tv_cl_title"
+        android:layout_marginTop="3dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_cl_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="08.00 - 16.00"
+        android:layout_below="@id/tv_cl_subtitle"
+        android:layout_alignLeft="@id/tv_cl_subtitle"
+        android:layout_alignStart="@id/tv_cl_subtitle"
+        android:layout_marginTop="3dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAbu"
+        android:layout_below="@id/tv_cl_content"
+        android:layout_marginTop="7dp" />
+
+</RelativeLayout>

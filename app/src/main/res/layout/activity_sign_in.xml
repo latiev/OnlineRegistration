@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/activity_horizontal_margin"
-    android:background="@drawable/sign_in_background"
+    android:background="@color/colorPrimary"
     tools:context="id.latiev.onlineregistration.activity.SignInActivity"
     tools:ignore="MissingPrefix">
 
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:text="Login Dengan Google"
         android:background="@drawable/button_background_inverse"
-        android:textColor="#3f51b5"
+        android:textColor="@color/colorPrimary"
         android:layout_above="@+id/btn_signin_email"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"/>
