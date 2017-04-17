@@ -39,10 +39,10 @@ public class JadwalDokterAdapter extends RecyclerView.Adapter<JadwalDokterAdapte
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final Dokter dokter = dokterList.get(position);
 
-        if (dokter.getKelamin() == "P"){
-            Glide.with(context).load(R.drawable.ic_female).into(holder.dokterThumbnail);
-        } else if (dokter.getKelamin() == "L"){
+        if (dokter.getKelamin() == "L"){
             Glide.with(context).load(R.drawable.ic_male).into(holder.dokterThumbnail);
+        } else {
+            Glide.with(context).load(R.drawable.ic_female).into(holder.dokterThumbnail);
         }
 
         holder.title.setText(dokter.getNama());

@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void getListJadwalDokter(String idKLinik){
-        String url = "http://localhost/hkiosk_v3/api/content/jadwal_dokter_list/page/1?clinic_id=" + idKLinik + "&docter_id=";
+        String url = "http://10.0.2.2/hkiosk_v3/api/content/jadwal_dokter_list/page/1?clinic_id=" + idKLinik + "&docter_id=";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
