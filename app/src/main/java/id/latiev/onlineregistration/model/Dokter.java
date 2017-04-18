@@ -9,16 +9,25 @@ public class Dokter {
     private String id_dokter;
     private String nama;
     private String kelamin;
+    private String ava_url;
     private int id_klinik;
     private String klinik;
     private String waktu;
 
     public Dokter(){}
 
-    public Dokter(String id_dokter, String nama, String kelamin, int id_klinik, String klinik, String waktu) {
+    public Dokter(String nama, String ava_url, String klinik, String waktu) {
+        this.nama = nama;
+        this.ava_url = ava_url;
+        this.klinik = klinik;
+        this.waktu = waktu;
+    }
+
+    public Dokter(String id_dokter, String nama, String kelamin, String ava_url, int id_klinik, String klinik, String waktu) {
         this.id_dokter = id_dokter;
         this.nama = nama;
         this.kelamin = kelamin;
+        this.ava_url = ava_url;
         this.id_klinik = id_klinik;
         this.klinik = klinik;
         this.waktu = waktu;
@@ -70,5 +79,13 @@ public class Dokter {
 
     public void setWaktu(String waktu) {
         this.waktu = waktu;
+    }
+
+    public String getAva_url() {
+        return ava_url;
+    }
+
+    public void setAva_url(String ava_url) {
+        this.ava_url = ava_url;
     }
 }

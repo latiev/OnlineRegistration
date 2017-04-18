@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         jadwalDokterAdapter = new JadwalDokterAdapter(MainActivity.this, dokterList);
 
+        rvJadwalDokter.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         rvJadwalDokter.setLayoutManager(layoutManager);
         rvJadwalDokter.setItemAnimator(new DefaultItemAnimator());
@@ -251,10 +252,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (datas.length() > 0){
                         for (int i = 0; i < datas.length(); i++){
                             JSONObject data = datas.getJSONObject(i);
-                            dokterList.add(new Dokter(data.getString("docter_id"), data.getString("dokter"), data.getString("kelamin"), data.getInt("clinic_id"), data.getString("klinik"), data.getString("waktu")));
-
-                            jadwalDokterAdapter.notifyDataSetChanged();
+                            dokterList.add(new Dokter(data.getString("dokter"), data.getString("ava_url"), data.getString("klinik"), data.getString("waktu")));
+                            //dokterList.add(new Dokter(data.getString("docter_id"), data.getString("dokter"), data.getString("kelamin"), data.getInt("clinic_id"), data.getString("klinik"), data.getString("waktu")));
                         }
+                        jadwalDokterAdapter.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
